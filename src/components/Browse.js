@@ -4,15 +4,17 @@ import useNowPlayingMoviesData from "../hooks/useNowPlayingMoviesData";
 import BrowseMainContainer from "./BrowseMainContainer";
 import BrowseSecondaryContainer from "./BrowseSecondaryContainer";
 import { useSelector } from "react-redux";
-import usePopularMoviesData from '../hooks/usePopularMoviesData';
-import useUpcomingMoviesData from '../hooks/useUpcomingMoviesData';
-import useTopRatedMoviesData from '../hooks/useTopRatedMoviesData';
+import usePopularMoviesData from "../hooks/usePopularMoviesData";
+import useUpcomingMoviesData from "../hooks/useUpcomingMoviesData";
+import useTopRatedMoviesData from "../hooks/useTopRatedMoviesData";
+import GPTSearchPage from "./GPTSearchPage";
 
 const Browse = () => {
   useNowPlayingMoviesData();
   usePopularMoviesData();
   useUpcomingMoviesData();
   useTopRatedMoviesData();
+  const isGPTSearchView = useSelector((store) => store.gptSearch.gptSearchView);
   const movies = useSelector((store) => store.movies.nowPlayingMovies);
   if (!movies) return;
 
@@ -21,13 +23,22 @@ const Browse = () => {
   }, movies[0]);
   console.log(mostPopularMovie);
 
-  const {id, original_title, overview} = mostPopularMovie
+  const { id, original_title, overview } = mostPopularMovie;
 
   return (
     <div>
       <Header />
-      <BrowseMainContainer movieId={id} title={original_title} overview={overview} />
-      <BrowseSecondaryContainer />
+      {isGPTSearchView && <GPTSearchPage />}
+      {!isGPTSearchView && (
+        <>
+          <BrowseMainContainer
+            movieId={id}
+            title={original_title}
+            overview={overview}
+          />
+          <BrowseSecondaryContainer />
+        </>
+      )}
     </div>
   );
 };
