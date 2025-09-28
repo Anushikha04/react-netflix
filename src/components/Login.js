@@ -7,8 +7,10 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [isSignInMode, setIsSignInMode] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -31,30 +33,34 @@ const Login = () => {
     setErrorMessage(message);
     if (errorMessage) return;
 
+    //just because firebase api for sign in and sign up is not working properly
+    navigate('/browse')
     //sign in/sign up
-    if (!isSignInMode) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + " - " + errorMessage);
-        });
-    } else {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + " - " + errorMessage);
-        });
-    }
+    // if (!isSignInMode) {
+    //   createUserWithEmailAndPassword(auth, email, password)
+    //     .then((userCredential) => {
+    //       const user = userCredential.user;
+    //       console.log(user);
+    //       navigate('/browse')
+    //     })
+    //     .catch((error) => {
+    //       const errorCode = error.code;
+    //       const errorMessage = error.message;
+    //       setErrorMessage(errorCode + " - " + errorMessage);
+    //     });
+    // } else {
+    //   signInWithEmailAndPassword(auth, email, password)
+    //     .then((userCredential) => {
+    //       const user = userCredential.user;
+    //       console.log(user);
+    //       navigate('/browse')
+    //     })
+    //     .catch((error) => {
+    //       const errorCode = error.code;
+    //       const errorMessage = error.message;
+    //       setErrorMessage(errorCode + " - " + errorMessage);
+    //     });
+    // }
   };
   return (
     <div>
