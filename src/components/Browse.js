@@ -21,7 +21,6 @@ const Browse = () => {
   const mostPopularMovie = movies.reduce((acc, cur) => {
     return cur.popularity > acc.popularity ? cur : acc;
   }, movies[0]);
-  console.log(mostPopularMovie);
 
   const { id, original_title, overview } = mostPopularMovie;
 

@@ -6,7 +6,7 @@ import {NETFLIX_LOGIN_BACKGROUND_IMAGE} from '../utils/const'
 const GPTSearchPage = () => {
   return (
     <div>
-      <div className="absolute -z-10">
+      <div className="fixed -z-10">
         <img
           src={NETFLIX_LOGIN_BACKGROUND_IMAGE}
           alt="netflix background logo"
